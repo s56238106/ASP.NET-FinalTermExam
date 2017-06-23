@@ -98,5 +98,20 @@ namespace Finaltest.Models
             }
             return result;
         }
+
+
+        public void DeleteCustomer(int id)
+        {
+            string sql = @"Delete FROM Sales.Customers Where CustomerID=@CustomerID";
+
+            using (SqlConnection conn = new SqlConnection(this.GetDBConnectionString()))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.Add(new SqlParameter("@CustomerID",id));
+                SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
+                conn.Close();
+            }
+        }
     }
 }

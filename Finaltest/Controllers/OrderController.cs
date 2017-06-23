@@ -38,7 +38,9 @@ namespace Finaltest.Controllers
         public ActionResult DeleteCustomer(int id)
         {
 
-            return View();
+            Models.OrderService ser = new Models.OrderService();
+            ser.DeleteCustomer(id);
+            return View("Index");
         }
 
 
