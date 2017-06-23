@@ -1,0 +1,56 @@
+﻿@model Finaltest.Models.Customer
+
+
+
+<div>@Html.ActionLink("新增訂單", "InsertCustomer")</div>
+@using (Html.BeginForm("Index", "Order", FormMethod.Get, new { id = "form1" }))
+{
+    <div>
+        <table>
+            <tr><td>客戶編號</td><td>@Html.TextBoxFor(model => model.CustomerID)</td></tr>
+            <tr><td>客戶名稱</td><td>@Html.TextBoxFor(model => model.CompanyName)</td></tr>
+            <tr><td>聯絡人姓名</td><td>@Html.TextBoxFor(model => model.ContactName)</td></tr>
+            <tr><td>聯絡人職稱</td><td>@Html.DropDownListFor(model => model.CodeVal, (List<SelectListItem>)ViewBag.CustContactTitle)</td></tr>
+            <tr><td><input type="hidden" name="indexboo" value="true" /></td></tr>
+            <tr><td><input type="submit" /><input type="button" onclick="ResetSearchForm()" value="清除" /></td></tr>
+        </table>
+    </div>
+}
+<br />
+<div>
+    <table>
+        <tr>
+            <td>編號</td>
+            <td>名稱</td>
+            <td>聯絡人姓名</td>
+            <td>聯絡人職稱</td>
+        </tr>
+        @foreach (var item in (List<Finaltest.Models.Customer>)ViewBag.custdata)
+        {
+            <tr>
+                <td>@item.CustomerID</td>
+                <td>@item.CompanyName</td>
+                <td>@item.ContactName</td>
+                <td>@item.ContactTitle</td>
+                <td>@Html.ActionLink("修改", "UpdateOrder", new { id = item.CustomerID })</td>
+
+                <td>
+                    <div>@Html.ActionLink("刪除", "DeleteOrder", new { id = item.CustomerID })</div>
+                    <a class="btnDelete" href="#">刪除</a>
+                    <input class="hidOrderId" type="hidden" value='' />
+                </td>
+
+            </tr>
+        }
+    </table>
+</div>
+
+
+<script>
+    function ResetSearchForm() {
+        $('#CustomerID').val(null);
+        $('#CompanyName').val(null);
+        $('#ContactName').val(null);
+        $('#CodeVal').val(null);
+    }
+</script>
